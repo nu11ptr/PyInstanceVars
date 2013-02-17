@@ -13,7 +13,7 @@ def instancevars(func):
 	def wrapper(self, *args, **kwargs):
 		argnames = names[1:]
 		# This works because kwargs must always be last and zip trucates to shortest list
-		allargs = zip(argnames, args) + kwargs.items()
+		allargs = list(zip(argnames, args)) + list(kwargs.items())
 
 		for name, arg in allargs:
 			if name[-1] != '_':
