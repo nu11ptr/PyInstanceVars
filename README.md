@@ -59,10 +59,11 @@ Why?
 
 Because Python initializer functions can get lengthy doing nothing more than one-to-one variable assignment.
 Languages such as Scala already have the ability to convert arguments to instance variables using 'val' or 'var'.
-Given Python's reputation of being succinct and terse it seems like this should be builtin. Some might believe
-this to be 'unpythonic', but I would respectfully disagree. We've listed a decorator and argument names denoting
-our intent, so IMHO we've been plenty 'explicit'. Still, I wouldn't recommend using this unless you have several
-initializer arguments.
+Given Python's reputation of being succinct and terse it seems like this should be builtin. 
+
+Some may think this is 'unpythonic', but I would respectfully disagree. We've listed a decorator and 
+an omit list denoting our intent, so I think we've been plenty 'explicit'. In my opinion, the terseness gained
+by decorator aids readability. Just my opinion, decide for yourself.
 
 Requirements
 ============
