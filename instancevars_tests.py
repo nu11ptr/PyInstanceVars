@@ -2,17 +2,17 @@ import unittest
 from instancevars import *
 
 class BasicTestClass(object):
-	@instancevars
+	@instancevars(omit=['arg2_', 'arg3_'])
 	def __init__(self, arg1, arg2_, arg3_='456', _arg4='789'):
 		self.arg3 = arg3_
 
 class InheritTestClass(BasicTestClass):
-	@instancevars
+	@instancevars(omit=['arg1_', 'arg3_', 'arg4_'])
 	def __init__(self, arg1_, arg2, _newarg, arg3_, arg4_='123'):
 		super(InheritTestClass, self).__init__(arg1_, arg2, arg3_, arg4_)
 
 class NoDefaultsTestClass(object):
-	@instancevars
+	@instancevars(omit=['arg1_'])
 	def __init__(self, arg1_, arg2, _arg3, arg4):
 		pass
 
