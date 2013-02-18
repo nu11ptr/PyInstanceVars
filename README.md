@@ -68,14 +68,14 @@ by the decorator aids readability. Just my opinion, decide for yourself.
 Requirements
 ============
 
-It was tested under both Python 2.7.x and Python 3.3.x.
+It has been tested under CPython 2.7/3.3, PyPy 1.9, and Jython 2.5/2.7.
 
 There are no library dependencies other than the standard library.
 
 Performance
 ===========
 
-The included rudimentary benchmark indicates 4-5X worse than explicit initialization.
+The included rudimentary benchmark indicates 4-5X worse performance than explicit initialization under CPython.
 For most scenarios this is probably fine, but there might be some cases where this is just too much overhead.
 
 Credits
