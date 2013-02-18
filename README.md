@@ -14,7 +14,7 @@ The simplest way to explain how to use it is with a quick code example. Notice h
 ...     @instancevars
 ...     def __init__(self, _arg1, arg2_, arg3='test'):
 ...             self.arg2 = arg2_ + 1
-... 
+...
 >>> testme = TestMe(1, 2)
 >>> testme._arg1
 1
@@ -26,7 +26,7 @@ AttributeError: 'TestMe' object has no attribute 'arg2_'
 3
 >>> testme.arg3
 'test'
->>> 
+>>>
 ```
 
 Why?
@@ -37,7 +37,7 @@ Because Python initializer functions can get lengthy doing nothing more than one
 Requirements
 ============
 
-It was tested under Python 2.7.x, but likely it will work under other versions. Hopefully it runs under Python 3 as well.
+It was tested under both Python 2.7.x and Python 3.3.x.
 
 There are no library dependencies outside of the standard library.
 
