@@ -63,7 +63,7 @@ Given Python's reputation of being succinct and terse it seems like this should 
 
 Some may think this is 'unpythonic', but I would respectfully disagree. We've listed a decorator and 
 an omit list denoting our intent, so I think we've been plenty 'explicit'. In my opinion, the terseness gained
-by decorator aids readability. Just my opinion, decide for yourself.
+by the decorator aids readability. Just my opinion, decide for yourself.
 
 Requirements
 ============
