@@ -1,6 +1,21 @@
 from functools import wraps
 import inspect
 
+def make_setter(args, def_args, names, omit):
+    # Construct a function definition that will assign values
+    # to instance variables
+    function_defn = "def _setter(%s): %s" % (
+        ", ".join(args + def_args),
+        "; ".join(["self.%s = %s" % (name, name) for name in names
+                  if name != "self" and name not in omit])
+    )
+
+    # Evaluate the string and extract the constructed function object
+    tmp_locals = {}
+    exec(function_defn, tmp_locals)
+    return tmp_locals['_setter']
+
+
 def instancevars(func=None, omit=[]):
     """
     A function decorator that automatically creates instance variables from
@@ -23,19 +38,7 @@ def instancevars(func=None, omit=[]):
             def_args = []
             args = names
 
-        # Construct a function definition that will assign values
-        # to instance variables
-        function_defn = "def _setter(%s): %s" % (
-            ", ".join(args + def_args),
-            "; ".join("self.%s = %s" % (name, name) for name in names
-                      if name != "self" and name not in omit)
-        )
-
-        # Evaluate the string and extract the constructed function object
-        src = compile(function_defn, "<string>", "exec")
-        tmp_locals = {}
-        exec src in {}, tmp_locals
-        _setter = tmp_locals['_setter']
+        _setter = make_setter(args, def_args, names, omit)
 
         @wraps(func)
         def wrapper(self, *args, **kwargs):
