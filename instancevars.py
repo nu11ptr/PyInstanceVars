@@ -15,23 +15,31 @@ def instancevars(func=None, omit=[]):
     if func:
         names, varargs, keywargs, defaults = inspect.getargspec(func)
 
+        if defaults:
+            args, def_args = names[:-len(defaults)], names[-len(defaults):]
+            def_args = ["%s=%s" % (arg, repr(default)) for arg, default
+                        in zip(def_args, defaults)]
+        else:
+            def_args = []
+            args = names
+
+        # Construct a function definition that will assign values
+        # to instance variables
+        function_defn = "def _setter(%s): %s" % (
+            ", ".join(args + def_args),
+            "; ".join("self.%s = %s" % (name, name) for name in names
+                      if name != "self" and name not in omit)
+        )
+
+        # Evaluate the string and extract the constructed function object
+        src = compile(function_defn, "<string>", "exec")
+        tmp_locals = {}
+        exec src in {}, tmp_locals
+        _setter = tmp_locals['_setter']
+
         @wraps(func)
         def wrapper(self, *args, **kwargs):
-            argnames = names[1:]
-            # This works because kwargs must always be last and zip trucates to shortest list
-            allargs = list(zip(argnames, args)) + list(kwargs.items())
-
-            for name, arg in allargs:
-                if name not in omit:
-                    setattr(self, name, arg)
-
-            if len(argnames) > len(allargs) and defaults is not None:
-                for i in range(len(defaults)):
-                    idx = -(i+1)
-                    name = names[idx]
-                    if not hasattr(self, name) and name not in omit:
-                        setattr(self, name, defaults[idx])
-
+            _setter(self, *args, **kwargs)
             func(self, *args, **kwargs)
 
         return wrapper
