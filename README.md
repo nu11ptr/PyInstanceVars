@@ -75,8 +75,8 @@ There are no library dependencies other than the standard library.
 Performance
 ===========
 
-The included rudimentary benchmark indicates 4-5X worse performance than explicit initialization under CPython.
-For most scenarios this is probably fine, but there might be some cases where this is just too much overhead.
+Thanks to a contributed rewrite, performance is now only 30-40% worse than explicit initialization under CPython.
+This is likely to be an acceptable amount of degradation for nearly all scenarios.
 
 Credits
 =======
